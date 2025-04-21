@@ -1,0 +1,155 @@
+const formGuests = document.getElementById('guests');
+const popUPAllergens = document.getElementById('popUPAllergens');
+const scriptTag = document.getElementById("dataObject");
+const body = document.getElementById("body");
+const formGuest = document.getElementById("formGuest");
+
+const editQuantityGuests = (quantity) =>{
+    
+    if(quantity == "no"){
+        formGuests.innerHTML =`<br><br>
+        <h2>Estas seguro que no asistiras?</h2>
+        <br>
+        <button onclick='alert("omg")'>Si</button>`;
+        return;
+    }else if(quantity == 0){
+         formGuests.innerHTML ="";
+        return;
+    }
+    const object = JSON.parse(scriptTag.textContent);
+    object.guestData.guests = [];
+    formGuests.innerHTML ="<div class='col'>";
+    for (let index = 0; index < quantity; index++) {
+        const newGuest = `<div class="row">
+        <input placeholder="Nombre Completo" name="name${index}" id="name${index}" type="text" class="wd-80">
+        <br>
+        <br>
+        <button onclick="allAllergens(${index})" class="wd-60">Selecionar Alergenos</button>
+    </div><br>`;
+    formGuests.innerHTML += newGuest;
+    object.guestData.guests.push({"name:": "","allergens":[]});
+    scriptTag.textContent = JSON.stringify(object, null, 2);
+    }
+    formGuests.innerHTML += `</div><button onclick="save()">save</button>`;
+    if(quantity > 0){
+        document.getElementById('name0').value = object.guestData.name;
+    }
+    document.getElementById("newQuantity").value = quantity;
+}
+
+const createAllergensPopUp = () =>{
+    const object = JSON.parse(scriptTag.textContent);
+    let options = `<form id="formAllergens" class="formAllergens"><p>Seleccionar Alergenos</p>`;
+    allergensData.forEach(element => {
+        options +=`<label style="width:80%;">
+            <img src="${element.img}">
+            ${element.name}
+             <input type="checkbox" name="alergenos" value="${element.name}" class="allergensSelector">
+        </label><br>`;
+    });
+    options +=`<label for="comentario">Otros:</label><br>
+        <textarea id="comentario" name="comentario" rows="3" style="width:80%;"></textarea>`;
+    options +="<button onclick='closePopUp()'>Guardar</button>";
+    options +="</form>";
+    popUPAllergens.innerHTML = options;
+
+    const listAllernger = document.querySelectorAll('.allergensSelector');
+    const guest = document.getElementById('allergensGuestNum').value;
+    if(guest >=0){
+        for (let index = 0; index < object.guestData.guests[guest].allergens.length; index++) {
+            document.getElementById("comentario").value = object.guestData.guests[guest].comment;
+            listAllernger.forEach(e =>{
+                if(e.defaultValue == object.guestData.guests[guest].allergens[index]){
+                e.checked = true;
+                }
+            });
+        }
+    }
+    scriptTag.textContent = JSON.stringify(object, null, 2);
+}
+
+const allAllergens = (num) =>{
+    event.preventDefault();
+    formGuest.classList.add('hide');
+    popUPAllergens.hidden = false;
+    document.getElementById('allergensGuestNum').value = num;
+    createAllergensPopUp();
+}
+
+const closePopUp = () =>{
+    event.preventDefault();
+    const object = JSON.parse(scriptTag.textContent);
+    popUPAllergens.hidden = true;
+    formGuest.classList.remove('hide');
+    const listAllernger = document.querySelectorAll('.allergensSelector');
+    let list = [];
+    listAllernger.forEach(e =>{if(e.checked)list.push(e.value)});
+    const guest = document.getElementById('allergensGuestNum').value;
+    object.guestData.guests[guest].comment = document.getElementById("comentario").value;
+    object.guestData.guests[guest].allergens = list;
+    listAllernger.forEach(e =>e.checked = false);
+    scriptTag.textContent = JSON.stringify(object, null, 2);
+}
+
+const controlDataToSend = (guestData) =>{
+    const quantity = document.getElementById("newQuantity").value;
+    guestData.quantity = quantity;
+    for (let index = 0; index < quantity; index++) {
+        const name = document.getElementById('name'+index).value
+        if(name == null || name == "")return null;
+        console.log(name); 
+        guestData.guests[index].name = name;
+    }
+    return guestData;
+}
+
+
+const save = () =>{
+    
+    const object = JSON.parse(scriptTag.textContent);
+    const guestData =  controlDataToSend(object.guestData);
+    if (guestData == null){
+        alert("todos los nombres no estan completos"); return;
+    } 
+
+    fetch('https://bodasgoldback-production.up.railway.app/api', {
+  method: 'PUT',
+  headers: {
+    'Content-Type': 'application/json'
+  },
+  body: JSON.stringify({
+    "name": guestData.name,
+    "done": guestData.done,
+    "quantity": guestData.quantity,
+    "guests":guestData.guests
+  })
+})
+  .then(response => {
+    if (!response.ok) {
+      throw new Error('Error en la respuesta del servidor');
+    }
+    return response.json();
+  })
+  .then(data => {
+    console.log('Usuario creado:', data);
+  })
+  .catch(error => {
+    console.error('Error al crear usuario:', error);
+  });
+    console.log(object.guestData);
+}
+
+const allergensData = [
+    {
+        "name": "glutten",
+        "img": "https://i.ibb.co/vJBXrNd/glutten.png"
+    },
+    {
+        "name": "huevo",
+        "img": "https://i.ibb.co/1MrHwhn/huevo.png"
+    },
+    {
+        "name": "vegano",
+        "img": "https://i.ibb.co/FKt0XhS/vegan.png"
+    }
+];

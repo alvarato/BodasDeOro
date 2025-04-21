@@ -132,6 +132,7 @@ const save = () =>{
   })
   .then(data => {
     console.log('Usuario creado:', data);
+    location.reload();
   })
   .catch(error => {
     console.error('Error al crear usuario:', error);

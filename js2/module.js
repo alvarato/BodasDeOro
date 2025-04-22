@@ -137,13 +137,20 @@ document.addEventListener('DOMContentLoaded', async function () {
   // Mostrar el spinner de carga (anillo de boda)
   //document.getElementById("loadingSpinner").style.display = "block";
   const params = new URLSearchParams(window.location.search);
-  const name = params.get("invitado");
-
+  let name = params.get("invitado");
+  if(name == null || name == ""){
+    name = null;
+  } 
   console.log("Esperando datos...");
   try {
     loadBodaInfo(object);
     loadIntinerario(object.intinerario);
-    object.guestData =  await loadGuestDB(name); // Espera completa
+    if (name !=null){
+      object.guestData =  await loadGuestDB(name); // Espera completa
+    }else{
+      object.guestData.done = true;
+    }
+    
     console.log("✅ Datos listos, continuando...");
     loadPrincipalObject(object.guestData);
     scriptTag.textContent = JSON.stringify(object, null, 2);
@@ -169,7 +176,6 @@ const userDontFound = () =>{
           background: '#ede3d7'
   });
   document.getElementById('form').remove();
- document.getElementById('regalo').remove();
 }
 
 

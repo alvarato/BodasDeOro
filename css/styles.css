@@ -14,9 +14,19 @@
         }
 
         .sub-body{
-            max-width: 600px;
+            max-width: 480px;
             margin: auto;
         }
+        .subDiv1{
+             width: 99%; margin: auto; margin-top: 15px;
+        }
+
+        @media (max-width: 600px) {
+            .subDiv{
+                height: 100vh;
+            }
+            .div1{ text-align: center;}
+          }
 
         .no-scroll {
             overflow: hidden;
@@ -26,7 +36,6 @@
         /* Opcional: estilos para diferenciar las secciones */
         .seccion-2 {
             background-color: #ede3d7;
-            /*#45454F;*/
             padding: 15px 5px;
             color: #9e846d;
             font-size: 50px;
@@ -78,7 +87,6 @@
         .div1 {
             background-color: #ede3d7;
             color: #9e846d;
-            border: solid;
             font-family: 'Courier New', Courier, monospace;
         }
 
@@ -87,7 +95,6 @@
             background-color: #5d674f;
             font-size: 35px;
             padding: 10% 10px;
-            text-align: center;
         }
 
         .hide {

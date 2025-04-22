@@ -7,10 +7,23 @@ const formGuest = document.getElementById("formGuest");
 const editQuantityGuests = (quantity) =>{
     
     if(quantity == "no"){
-        formGuests.innerHTML =`<br><br>
-        <h2>Estas seguro que no asistiras?</h2>
-        <br>
-        <button onclick='alert("omg")'>Si</button>`;
+        formGuests.innerHTML ="";
+          Swal.fire({
+            title: 'Estas seguro que no asistiras a la Boda?',
+            showCancelButton: true,
+            showConfirmButton:true,
+            confirmButtonColor: '#ff6961',
+            confirmButtonText: "Confirmo",
+            cancelButtonText: "Volver",
+            background: '#ede3d7',
+          }).then((result) => {
+            /* Read more about isConfirmed, isDenied below */
+            if (result.isConfirmed) {
+                dontWillGoWedding();
+            }else{
+                document.getElementById('quantity').value ="0"
+            }
+          });
         return;
     }else if(quantity == 0){
          formGuests.innerHTML ="";
@@ -21,16 +34,16 @@ const editQuantityGuests = (quantity) =>{
     formGuests.innerHTML ="<div class='col'>";
     for (let index = 0; index < quantity; index++) {
         const newGuest = `<div class="row">
-        <input placeholder="Nombre Completo" name="name${index}" id="name${index}" type="text" class="wd-80">
+        <input placeholder="Nombre Completo" name="name${index}" id="name${index}" type="text" class="wd-80 bg-crema">
         <br>
         <br>
-        <button onclick="allAllergens(${index})" class="wd-60">Selecionar Alergenos</button>
+        <button onclick="allAllergens(${index})" class="wd-60 bg-crema">Selecionar Alergenos</button>
     </div><br>`;
     formGuests.innerHTML += newGuest;
     object.guestData.guests.push({"name:": "","allergens":[]});
     scriptTag.textContent = JSON.stringify(object, null, 2);
     }
-    formGuests.innerHTML += `</div><button onclick="save()">save</button>`;
+    formGuests.innerHTML += `</div><button onclick="save()" class="bg-crema">Guardar</button>`;
     if(quantity > 0){
         document.getElementById('name0').value = object.guestData.name;
     }
@@ -48,8 +61,8 @@ const createAllergensPopUp = () =>{
         </label><br>`;
     });
     options +=`<label for="comentario">Otros:</label><br>
-        <textarea id="comentario" name="comentario" rows="3" style="width:80%;"></textarea>`;
-    options +="<button onclick='closePopUp()'>Guardar</button>";
+        <textarea id="comentario" name="comentario" rows="3" style="width:80%;" class="bg-crema"></textarea>`;
+    options +="<button onclick='closePopUp()' class='bg-crema'>Guardar</button>";
     options +="</form>";
     popUPAllergens.innerHTML = options;
 
@@ -96,8 +109,7 @@ const controlDataToSend = (guestData) =>{
     guestData.quantity = quantity;
     for (let index = 0; index < quantity; index++) {
         const name = document.getElementById('name'+index).value
-        if(name == null || name == "")return null;
-        console.log(name); 
+        if(name == null || name == "" || name.length < 5)return null;
         guestData.guests[index].name = name;
     }
     return guestData;
@@ -109,35 +121,29 @@ const save = () =>{
     const object = JSON.parse(scriptTag.textContent);
     const guestData =  controlDataToSend(object.guestData);
     if (guestData == null){
-        alert("todos los nombres no estan completos"); return;
-    } 
-
-    fetch('https://bodasgoldback-production.up.railway.app/api', {
-  method: 'PUT',
-  headers: {
-    'Content-Type': 'application/json'
-  },
-  body: JSON.stringify({
-    "name": guestData.name,
-    "done": guestData.done,
-    "quantity": guestData.quantity,
-    "guests":guestData.guests
-  })
-})
-  .then(response => {
-    if (!response.ok) {
-      throw new Error('Error en la respuesta del servidor');
+        Swal.fire({
+            title: 'Todos los invitados deben tener su nombre completo',
+            confirmButtonText: 'Entendido!',
+            confirmButtonColor: '#5d674f',
+            background: '#ede3d7'
+          })
+        return;
+    } else{
+        Swal.fire({
+            title: 'Estás seguro que quieres enviar las invitaciones?',
+            confirmButtonText: 'Si',
+            confirmButtonColor: '#5d674f',
+            background: '#ede3d7',
+            cancelButtonText: "Volver",
+            showCancelButton: true,
+        }).then((result) => {
+            if (!result.isConfirmed) return;
+            else willGoWedding(guestData);
+          });
+        
     }
-    return response.json();
-  })
-  .then(data => {
-    console.log('Usuario creado:', data);
-    location.reload();
-  })
-  .catch(error => {
-    console.error('Error al crear usuario:', error);
-  });
-    console.log(object.guestData);
+
+   
 }
 
 const allergensData = [
@@ -146,7 +152,7 @@ const allergensData = [
         "img": "https://i.ibb.co/vJBXrNd/glutten.png"
     },
     {
-        "name": "huevo",
+        "name": "Lactosa",
         "img": "https://i.ibb.co/1MrHwhn/huevo.png"
     },
     {
@@ -154,3 +160,71 @@ const allergensData = [
         "img": "https://i.ibb.co/FKt0XhS/vegan.png"
     }
 ];
+
+const willGoWedding = (guestData) =>{
+    fetch('https://bodasgoldback-production.up.railway.app/api', {
+        method: 'PUT',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+          "name": guestData.name,
+          "done": guestData.done,
+          "quantity": guestData.quantity,
+          "guests":guestData.guests
+        })
+      })
+        .then(response => {
+          if (!response.ok) {
+            throw new Error('Error en la respuesta del servidor');
+          }
+          return response.json();
+        })
+        .then(data => {
+          
+          Swal.fire({
+              title: 'Invitación cargada',
+              confirmButtonText: 'Nos vemos en la Boda!!',
+              confirmButtonColor: '#5d674f',
+              background: '#ede3d7'
+            })
+          document.getElementById('form').remove();
+        })
+        .catch(error => {
+          console.error('Error al crear usuario:', error);
+        });
+}
+
+const dontWillGoWedding = () =>{
+    const object = JSON.parse(scriptTag.textContent);
+    fetch('https://bodasgoldback-production.up.railway.app/api', {
+        method: 'PUT',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+          "name": object.guestData.name,
+          "done": true,
+          "quantity": 0
+        })
+      })
+        .then(response => {
+          if (!response.ok) {
+            throw new Error('Error en la respuesta del servidor');
+          }
+          return response.json();
+        })
+        .then(data => {
+          Swal.fire({
+              title: '¡Gracias por avisarnos!',
+              confirmButtonText: 'Aceptar',
+              confirmButtonColor: '#5d674f',
+              background: '#ede3d7'
+            })
+          document.getElementById('form').remove();
+        })
+        .catch(error => {
+          console.error('Error al crear usuario:', error);
+        });
+
+}

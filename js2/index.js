@@ -1,14 +1,14 @@
 
 let object = {
     "id":"1",
-    "name":"Alvaro Bernabey Izquierdo",
+    "name":"",
     "person":0,
     "quantity":2,
     "done":false,
     "guests":[
        { "allergens":['leche'],
-        "name":"Alvaro Bernabey Izquierdo",},
-        {"allergens":[],"name":"Maria"}
+        "name":"",},
+        {"allergens":[],"name":""}
         ]
 }
 const loadPrincipalObject = (guestData) =>object = guestData;
@@ -69,7 +69,7 @@ const createAllergensPopUp = () =>{
 const addQuantity = () =>{
     const elementoOpcion = document.createElement('option');
         elementoOpcion.value = 0;
-        elementoOpcion.textContent = "Selecione la Cantidad";
+        elementoOpcion.textContent = "Selecciona la cantidad";
         selectQuantity.appendChild(elementoOpcion);
         const elementoOpcion2 = document.createElement('option');
         elementoOpcion2.value = "no";

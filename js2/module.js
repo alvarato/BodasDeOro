@@ -14,35 +14,35 @@ const object = {
     "info":{
         "salon":{
             "link":"https://maps.app.goo.gl/Do3erMRwskRgXVVE9",
-            "time":"16:00",
+            "time":"18:00",
             "name":"Salón La Arboleda"
             },
         "iglesia":{
             "link":"https://maps.app.goo.gl/h83QYJo3NkEotb837",
-            "time":"17:00",
-            "name":"Parroquia Nuestra Señora de la caridad"
+            "time":"16:30",
+            "name":"Parroquia Nuestra Señora de la Caridad"
             }
     },
     "intinerario" : [
         {
             "img":"img/icon/iglesia.png",
-            "time":"16:00",
+            "time":"16:30",
             "name":"Ceremonia"
             },
         {
             "img":"img/icon/copas.png",
-            "time":"17:00",
+            "time":"18:00",
             "name":"Cocktail"
         },
         {
             "img":"img/icon/comida.png",
-            "time":"19:00",
+            "time":"20:00",
             "name":"Comida"
         },
         {
             "img":"img/icon/musica.png",
             "time":"22:00",
-            "name":"Baile"
+            "name":"Fiesta"
         }
     ],
     "guestData" : {
@@ -69,7 +69,8 @@ const changeImg = () =>{
   function loadGuestDB(name) {
     return new Promise((resolve, reject) => {
       console.log("→ Llamando a API con:", name);
-      fetch('https://bodasgoldback-production.up.railway.app/api/'+name, {
+      //https://bodasgoldback-production.up.railway.app/api/
+      fetch('http://localhost:8080/api/'+name, {
         method: 'GET',
         headers: {
           'Content-Type': 'application/json' // Indicamos que enviamos JSON
@@ -77,11 +78,10 @@ const changeImg = () =>{
       })
         .then(response => {
           if (!response.ok) {
-            throw new Error('Error en la respuesta del servidor');
+            userDontFound();
           }
           resolve(response.json());
         })
-
       }
       
   )}
@@ -133,6 +133,8 @@ const changeImg = () =>{
   
 
 document.addEventListener('DOMContentLoaded', async function () {
+  // Mostrar el spinner de carga (anillo de boda)
+  //document.getElementById("loadingSpinner").style.display = "block";
   const params = new URLSearchParams(window.location.search);
   const name = params.get("invitado");
 
@@ -147,13 +149,26 @@ document.addEventListener('DOMContentLoaded', async function () {
     if(!object.guestData.done){
         addQuantity();
     }else{
-        form.innerHTML =`<div id="qrcode"></div>`;
-        sliderGenerator(object.guestData.guests);
+        document.getElementById('form').remove();
+       // form.innerHTML =`<div id="qrcode"></div>`;
+        //sliderGenerator(object.guestData.guests);
     }
 
   } catch (err) {
     console.error("❌ Error general:", err);
+    userDontFound();
   }
 });
+
+const userDontFound = () =>{
+  Swal.fire({
+    title: "Invitado no encontrado",
+    confirmButtonText: "Aceptar",
+    confirmButtonColor: '#5d674f',
+          background: '#ede3d7'
+  });
+  document.getElementById('form').remove();
+ document.getElementById('regalo').remove();
+}
 
 

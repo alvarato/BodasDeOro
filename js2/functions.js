@@ -61,7 +61,7 @@ const createAllergensPopUp = () =>{
         </label><br>`;
     });
     options +=`<label for="comentario">Otros:</label><br>
-        <textarea id="comentario" name="comentario" rows="3" style="width:80%;" class="bg-crema"></textarea>`;
+        <textarea id="comentario" name="comentario" rows="3" style="width:80%; resize: none;" class="bg-crema"></textarea>`;
     options +="<button onclick='closePopUp()' class='bg-crema'>Guardar</button>";
     options +="</form>";
     popUPAllergens.innerHTML = options;
@@ -148,16 +148,16 @@ const save = () =>{
 
 const allergensData = [
     {
-        "name": "glutten",
-        "img": "https://i.ibb.co/vJBXrNd/glutten.png"
+        "name": "Glutten",
+        "img": "img/icon/glutten.png"
     },
     {
         "name": "Lactosa",
-        "img": "https://i.ibb.co/1MrHwhn/huevo.png"
+        "img": "img/icon/leche.png"
     },
     {
-        "name": "vegano",
-        "img": "https://i.ibb.co/FKt0XhS/vegan.png"
+        "name": "Vegano",
+        "img": "img/icon/vegano.png"
     }
 ];
 

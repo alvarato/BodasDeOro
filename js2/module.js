@@ -52,8 +52,8 @@ const object = {
     "done":false,
     "guests":[
        { "allergens":['leche'],"comment":"cca",
-        "name":"Alvaro Bernabey Izquierdo",},
-        {"allergens":[],"comment":"ccm","name":"Maria"}
+        "name":"",},
+        {"allergens":[],"comment":"ccm","name":""}
         ]
 }
 
@@ -71,7 +71,7 @@ const changeImg = () =>{
       console.log("→ Llamando a API con:", name);
       //https://bodasgoldback-production.up.railway.app/api/
       //http://localhost:8080/api/
-      fetch('https://bodasgoldback-production.up.railway.app/api/'+name, {
+      fetch('http://localhost:8080/api/'+name, {
         method: 'GET',
         headers: {
           'Content-Type': 'application/json' // Indicamos que enviamos JSON

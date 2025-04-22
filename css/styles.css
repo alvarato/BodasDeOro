@@ -2,16 +2,20 @@
         body,
         html {
             background-color: #ede3d7;
-            margin: 0;
-            padding: 0;
             scroll-behavior: smooth;
             font-family: "Euphoria Script", cursive;
+            overflow-x: hidden;
             /* Desplazamiento suave */
         }
 
         body a {
             color: #5d674f;
             /* Deshabilita el desplazamiento */
+        }
+
+        .sub-body{
+            max-width: 600px;
+            margin: auto;
         }
 
         .no-scroll {

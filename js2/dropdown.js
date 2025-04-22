@@ -72,9 +72,8 @@ document.getElementById("dropdownGift").innerHTML = `
 </button>
 <div class="dropdown-content">
 <p>Buzón de sobres en el salón</p>
-<p>Mercado pago:
-    CVU: 0000003100030615441020
-    Alias: sofi.juan.041025</p>
+<p>Mercado pago:CVU: 0000003100030615441020</p>
+  <p>  Alias: sofi.juan.041025</p>
 <p> ING España: ES58 1465 0120 35 1759782005</p>
 </div>
 </div>

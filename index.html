@@ -19,7 +19,7 @@
 
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    
+
     <link
         href="https://fonts.googleapis.com/css2?family=Euphoria+Script&family=Playwrite+IN:wght@100..400&family=Playwrite+VN:wght@100..400&display=swap"
         rel="stylesheet">
@@ -27,114 +27,116 @@
 </head>
 
 <body id="body">
+    <section class="sub-body">
+        <img id="weddingRing" src="img/ring.svg" alt="Descripción del SVG" width="200" height="200" hidden>
 
-    <img id="weddingRing" src="img/ring.svg" alt="Descripción del SVG" width="200" height="200" hidden>
-
-    <input type="number" id="allergensGuestNum" value='0' hidden>
-    </div>
-    <div id="div1" class="container-fluid vh-100 text-center">
-        <div style="height: 70vh; width: 99%; margin: auto; margin-top: 15px;">
-            <img id="principalImg" src="img/bg/principal.jpg"
-                style=" width:100%;height:100%;object-fit:cover;margin-bottom:20px;">
-            <p id="text1" class="principal-text"></p>
-            <strong>
-                <p id="text2" class="principal-text"></p>
-            </strong>
-            <p id="principalDate" class="principal-text"></p>
+        <input type="number" id="allergensGuestNum" value='0' hidden>
         </div>
-    </div>
-
-    <div id="subSeccion" class="container-fluid text-center subSeccion">
-        <p id="text3"></p>
-    </div>
-
-    <!-- Sección 2 <img src="https://i.ibb.co/8rN2zBx/flores1.png" width="120px"> -->
-    <div id="info" class="container-fluid seccion-2 p-10">
-        <div class="row">
-            <div class="col text-center">
-                <p id="bodaText" class="info-text"></p>
-                <p id="bodaInfo" class="info-text"></p>
+        <div id="div1" class="container-fluid vh-100 text-center">
+            <div style="height: 70vh; width: 99%; margin: auto; margin-top: 15px;">
+                <img id="principalImg" src="img/bg/principal.jpg"
+                    style=" width:100%;height:100%;object-fit:cover;margin-bottom:20px;">
+                <p id="text1" class="principal-text"></p>
+                <strong>
+                    <p id="text2" class="principal-text"></p>
+                </strong>
+                <p id="principalDate" class="principal-text"></p>
             </div>
         </div>
-    </div>
 
-    <!-- Timer -->
-    <div id="timer" class="container-fluid timer">
-        <div class="text-center">
-            <p id="day" class="day"></p>
-        </div>
-        <div class="contador">
-            <div class="unidad">
-                <span id="dias">0</span>
-                <p>Días</p>
-            </div>
-            <div class="unidad">
-                <span id="horas">0</span>
-                <p>Horas</p>
-            </div>
-            <div class="unidad">
-                <span id="minutos">0</span>
-                <p>Min</p>
-            </div>
-            <div class="unidad">
-                <span id="segundos">0</span>
-                <p>Seg</p>
-            </div>
-        </div>
-        <div class="text-center">
-            <p id="date" class="date"></p>
-        </div>
-    </div>
-
-
-    <!-- Sección 3 --->
-    <div class="container-fluid intinerario text-center" id="container-intinerario">
-        <h1>Intinerario</h1>
-        <div style="display: flex; justify-content: center; position: relative; margin-top: 30px;">
-            <div style="width: 1%;"></div>
-            <div style="width: 100%; justify-content: center;">
-                <div id="barraProgreso" style="margin: auto;"></div>
-            </div>
-            <div id="intinerario" style="background-color: transparent;position: absolute; z-index: 2">
-            </div>
-            <div id="rellenoIntinerario" style="opacity: 0; width: 1%;"></div>
+        <div id="subSeccion" class="container-fluid text-center subSeccion">
+            <p id="text3"></p>
         </div>
 
-    </div>
-
-
-    <!-- Sección 3 -->
-    <div id="form" class="container form text-center" style="position: relative;">
-        <input id="newQuantity" type="number" hidden />
-        <div style="height: 100%; ">
-            <div id="popUPAllergens" style="border: solid;" class=" container-fluid popUp" hidden></div>
-        </div>
-        <div id="formGuest" class="formGuest">
-            <p>Información de los Invitados</p>
-            <select id="quantity" onchange="editQuantityGuests(this.value)" class="bg-crema" style="text-align: center;">
-            </select>
-            <div id="guests">
+        <!-- Sección 2 <img src="https://i.ibb.co/8rN2zBx/flores1.png" width="120px"> -->
+        <div id="info" class="container-fluid seccion-2 p-10">
+            <div class="row">
+                <div class="col text-center">
+                    <p id="bodaText" class="info-text"></p>
+                    <p id="bodaInfo" class="info-text"></p>
+                </div>
             </div>
         </div>
-    </div>
 
-    <div id="regalo" class="container text-center regalo">
-        <p>El regalo es opcional, la asistencia obligatoria pero si quieres tener
-            un detalle con nosotros te damos algunas ideas</p>
-        <div id="dropdownGift">
+        <!-- Timer -->
+        <div id="timer" class="container-fluid timer">
+            <div class="text-center">
+                <p id="day" class="day"></p>
+            </div>
+            <div class="contador">
+                <div class="unidad">
+                    <span id="dias">0</span>
+                    <p>Días</p>
+                </div>
+                <div class="unidad">
+                    <span id="horas">0</span>
+                    <p>Horas</p>
+                </div>
+                <div class="unidad">
+                    <span id="minutos">0</span>
+                    <p>Min</p>
+                </div>
+                <div class="unidad">
+                    <span id="segundos">0</span>
+                    <p>Seg</p>
+                </div>
+            </div>
+            <div class="text-center">
+                <p id="date" class="date"></p>
+            </div>
         </div>
-    </div>
-    <div id="subSeccion" class="container-fluid text-center subSeccion">
-        <p id="text4" class="info-text"></p>
-    </div>
+
+
+        <!-- Sección 3 --->
+        <div class="container-fluid intinerario text-center" id="container-intinerario">
+            <h1>Intinerario</h1>
+            <div style="display: flex; justify-content: center; position: relative; margin-top: 30px;">
+                <div style="width: 1%;"></div>
+                <div style="width: 100%; justify-content: center;">
+                    <div id="barraProgreso" style="margin: auto;"></div>
+                </div>
+                <div id="intinerario" style="background-color: transparent;position: absolute; z-index: 2">
+                </div>
+                <div id="rellenoIntinerario" style="opacity: 0; width: 1%;"></div>
+            </div>
+
+        </div>
+
+
+        <!-- Sección 3 -->
+        <div id="form" class="container form text-center" style="position: relative;">
+            <input id="newQuantity" type="number" hidden />
+            <div style="height: 100%; ">
+                <div id="popUPAllergens" style="border: solid #ede3d7; border-radius: 20px;" class=" container-fluid popUp" hidden></div>
+            </div>
+            <div id="formGuest" class="formGuest">
+                <p>Información de los Invitados</p>
+                <select id="quantity" onchange="editQuantityGuests(this.value)" class="bg-crema"
+                    style="text-align: center;">
+                </select>
+                <div id="guests">
+                </div>
+            </div>
+        </div>
+
+        <div id="regalo" class="container text-center regalo">
+            <p>El regalo es opcional, la asistencia obligatoria pero si quieres tener
+                un detalle con nosotros te damos algunas ideas</p>
+            <img src="img/icon/mail.svg" style="width: 40px; margin-bottom: 5px;">
+            <div id="dropdownGift">
+            </div>
+        </div>
+        <div id="subSeccion" class="container-fluid text-center subSeccion">
+            <p id="text4" class="info-text"></p>
+        </div>
 
 
 
-    <div style="height: 70vh; width: 99%;margin: auto; margin-top: 15px;">
-        <img src="img/bg/final.jpg" style=" width:100%;height:100%;object-fit:cover;margin-bottom:20px;">
-    </div>
+        <div style=" width: 99%;margin: auto; margin-top: 15px;">
+            <img src="img/bg/final.jpg" style=" width:100%;height:100%;object-fit:cover;margin-bottom:20px;">
+        </div>
 
-
+    </section>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
         crossorigin="anonymous"></script>
@@ -146,7 +148,7 @@
     <script src="js2/timer.js"></script>
     <script src="js2/functions.js"></script>
     <script src="js2/module.js" type="module"></script>
-   
+
 
     <script>
         // Función que actualiza la altura de la barra de progreso

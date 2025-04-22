@@ -95,7 +95,7 @@ const changeImg = () =>{
 }
 
   const sliderGenerator = (qrList) =>{
-    let print = `<div id="slider">`;
+   /* let print = `<div id="slider">`;
     for (let index = 0; index < qrList.length; index++) {
         if(index == 0){
             print+=` <input type="radio" name="slider" id="slide1" checked>`;
@@ -128,7 +128,7 @@ const changeImg = () =>{
     }
     print+=`</div></div>`;
    document.getElementById('qrcode').innerHTML= print;
-   qrGenerator(qrList);
+   qrGenerator(qrList);*/
   }
   
 

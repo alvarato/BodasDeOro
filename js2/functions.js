@@ -160,8 +160,10 @@ const allergensData = [
         "img": "img/icon/vegano.png"
     }
 ];
+const isAfterDinner = () => document.getElementById('container-intinerario') == null?true:false;
 
 const willGoWedding = (guestData) =>{
+    
     fetch('https://bodasgoldback-production.up.railway.app/api', {
         method: 'PUT',
         headers: {
@@ -171,7 +173,8 @@ const willGoWedding = (guestData) =>{
           "name": guestData.name,
           "done": guestData.done,
           "quantity": guestData.quantity,
-          "guests":guestData.guests
+          "guests":guestData.guests,
+          "afterDinner": isAfterDinner()
         })
       })
         .then(response => {
@@ -205,7 +208,8 @@ const dontWillGoWedding = () =>{
         body: JSON.stringify({
           "name": object.guestData.name,
           "done": true,
-          "quantity": 0
+          "quantity": 0,
+          "afterDinner": isAfterDinner()
         })
       })
         .then(response => {
